@@ -1,0 +1,93 @@
+{
+  "hero": {
+    "image": "pool-candlelight.jpg",
+    "alt": "Candlelight reflected across a pool at night, framed by tall trees wrapped in warm lights.",
+    "position": "50% 60%",
+    "representative": true,
+    "video": null
+  },
+  "chapter.arrive": {
+    "image": "virunga-highlands.jpg",
+    "alt": "The Virunga volcanoes rising above the highlands around Grotta Resort, Musanze.",
+    "position": "60% 50%",
+    "representative": false,
+    "video": null
+  },
+  "chapter.gather": {
+    "image": "festive-lounge.jpg",
+    "alt": "A timber-roofed lounge dressed for Christmas with lit trees, garlands and wrapped gifts.",
+    "position": "50% 55%",
+    "representative": true,
+    "video": null
+  },
+  "chapter.gather.detail": {
+    "image": "festive-drink.jpg",
+    "alt": "A red festive drink with a citrus slice, set among pink flowers.",
+    "position": "50% 60%",
+    "representative": false,
+    "video": null
+  },
+  "chapter.wonder": {
+    "image": "gift-room.jpg",
+    "alt": "A room hung with wrapped gifts and lights, with a North Pole post office desk for letters.",
+    "position": "60% 50%",
+    "representative": true,
+    "video": null
+  },
+  "chapter.wonder.people": {
+    "image": "family-garden.jpg",
+    "alt": "A family exploring the gardens together.",
+    "position": "50% 40%",
+    "representative": false,
+    "video": null
+  },
+  "chapter.wonder.cinema": {
+    "image": "cinema-screen.jpg",
+    "alt": "A glowing screen in a darkened timber pavilion, with blankets laid out for the audience.",
+    "position": "50% 40%",
+    "representative": true,
+    "video": null
+  },
+  "chapter.play": {
+    "image": "cave-pool.jpg",
+    "alt": "The pool at night, seen from the rock edge of the cave, with a fire burning beyond the water.",
+    "position": "55% 55%",
+    "representative": false,
+    "video": null
+  },
+  "chapter.play.detail": {
+    "image": "lawn-play.jpg",
+    "alt": "Families stretching and playing together on a sunny lawn.",
+    "position": "50% 50%",
+    "representative": false,
+    "video": null
+  },
+  "chapter.cave": {
+    "image": "cave-glow.jpg",
+    "alt": "Inside the volcanic cave, warm light glowing from a passage in the rock.",
+    "position": "50% 55%",
+    "representative": false,
+    "video": null
+  },
+  "stay": {
+    "image": "highland-room.jpg",
+    "alt": "A Grotta Resort room with a large bed, stone wall and tall windows onto the gardens.",
+    "position": "50% 55%",
+    "representative": false,
+    "video": null
+  },
+  "stay.detail": {
+    "image": "garden-path.jpg",
+    "alt": "A stone path winding through lush gardens at Grotta Resort.",
+    "position": "50% 50%",
+    "representative": false,
+    "video": null
+  },
+  "invitation": {
+    "image": "pool-bokeh.jpg",
+    "alt": "",
+    "position": "50% 50%",
+    "representative": true,
+    "video": null
+  }
+}

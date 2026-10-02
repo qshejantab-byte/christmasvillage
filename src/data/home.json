@@ -1,0 +1,41 @@
+{
+  "threshold": {
+    "eyebrow": "Welcome to the Village",
+    "titleLines": ["For twenty-four days,", "Grotta Resort becomes", "a <em>Christmas Village</em>", "in the volcanic highlands", "of Musanze."],
+    "indexLabel": "The journey, in five chapters"
+  },
+  "mapTeaser": {
+    "eyebrow": "The Village Map",
+    "titleLines": ["Every Path,", "<em>Drawn</em>"],
+    "body": "Eighteen stops, from the Sales Pavilion to the caroling at the exit. Open the map to find each one — where to eat, swim and play, and where the cave route leads you out."
+  },
+  "stay": {
+    "eyebrow": "Stay the Season",
+    "titleLines": ["Turn Your Visit", "into a <em>Christmas Getaway</em>"],
+    "body": "Stay overnight and experience the fullest version of the season at Grotta. Enjoy the festive atmosphere into the evening, wake up in the volcanic highlands and make the celebration part of a memorable Musanze escape.",
+    "pendingCta": "Festive stay booking — link to be confirmed",
+    "source": "Developer Handoff §3, accommodation section (not superseded)"
+  },
+  "essentials": {
+    "eyebrow": "Before You Go",
+    "title": "How the Village <em>Works</em>",
+    "columns": [
+      {
+        "title": "One ticket",
+        "lines": ["RWF 50,000 for adults and children alike.", "Includes RWF 30,000 credit on your QR wristband.", "Bought at the Sales Pavilion with Mobile Money."]
+      },
+      {
+        "title": "One wristband",
+        "lines": ["Every purchase is scanned from your wristband.", "Top up at authorised booths, to RWF 1,000,000.", "Verified unused balance is refundable at the end of your visit."]
+      },
+      {
+        "title": "Good to know",
+        "lines": ["Same-day re-entry with the same wristband.", "Outside food and drinks are not permitted.", "Hotel residents receive complimentary access."]
+      }
+    ]
+  },
+  "invitation": {
+    "eyebrow": "The Invitation",
+    "titleLines": ["Come for the afternoon.", "<em>Stay for the lights.</em>"]
+  }
+}

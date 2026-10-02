@@ -1,0 +1,31 @@
+---
+import { cta } from '../lib/content';
+import ctaData from '../data/ctas.json';
+
+interface Props {
+  name: keyof typeof ctaData;
+  variant?: 'solid' | 'line' | 'ink' | 'link';
+  pendingText?: string;
+  class?: string;
+}
+
+const { name, variant = 'solid', pendingText, class: className } = Astro.props;
+const item = cta(name);
+const classes = variant === 'link' ? ['link'] : ['btn', variant !== 'solid' && `btn--${variant}`];
+---
+
+{
+  item ? (
+    <a
+      class:list={[...classes, className]}
+      href={item.href}
+      {...(item.external ? { target: '_blank', rel: 'noopener' } : {})}
+    >
+      <span>{item.label}</span>
+      {variant === 'link' && <span class="arrow" aria-hidden="true">→</span>}
+      {item.external && <span class="visually-hidden">(opens in a new tab)</span>}
+    </a>
+  ) : (
+    pendingText && <span class:list={['pending', className]}>{pendingText}</span>
+  )
+}

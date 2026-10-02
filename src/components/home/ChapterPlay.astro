@@ -1,0 +1,108 @@
+---
+import Media from '../media/Media.astro';
+import ChapterMark from '../editorial/ChapterMark.astro';
+import Lines from '../editorial/Lines.astro';
+import { chapter } from '../../lib/content';
+
+const c = chapter('play');
+---
+
+<section class="ch-play" id="chapter-play" data-chapter="play" aria-labelledby="play-title">
+  <div class="ch-play__scene">
+    <Media slot={c.media[0]} class="ch-play__media" sizes="100vw" parallax="6%" />
+    <div class="ch-play__veil" aria-hidden="true"></div>
+    <div class="wrap ch-play__content">
+      <ChapterMark chapter={c} />
+      <Lines as="h2" id="play-title" class="display ch-play__title" lines={c.titleLines ?? [c.title]} />
+      <p class="lede ch-play__lede" data-reveal style="--i:1">{c.lede}</p>
+    </div>
+  </div>
+
+  <div class="wrap grid ch-play__after">
+    <ul class="ch-play__activities" role="list" aria-label="Activities">
+      {
+        c.activities?.map((a, i) => (
+          <li data-reveal style={`--i:${i % 4}`}>
+            {a}
+          </li>
+        ))
+      }
+    </ul>
+    <div class="ch-play__aside">
+      <Media slot={c.media[1]} class="ch-play__detail" sizes="(min-width: 1100px) 26vw, 60vw" reveal />
+      {c.note && <p class="small" data-reveal>{c.note}</p>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ch-play { padding-bottom: var(--space-2xl); }
+  .ch-play__scene {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    align-items: end;
+  }
+  .ch-play :global(.ch-play__media) {
+    position: absolute;
+    inset: 0;
+  }
+  .ch-play__veil {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, var(--volcanic) 0%, rgb(12 11 9 / 0.7) 30%, rgb(12 11 9 / 0) 65%),
+      linear-gradient(to bottom, var(--volcanic) 0%, rgb(12 11 9 / 0) 20%);
+  }
+  .ch-play__content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: var(--space-m);
+    padding-block: var(--space-2xl) var(--space-xl);
+  }
+  .ch-play__title {
+    font-size: var(--step-5);
+    line-height: 0.92;
+  }
+  .ch-play__lede { max-width: 38ch; }
+
+  .ch-play__after {
+    margin-top: var(--space-xl);
+    align-items: end;
+    row-gap: var(--space-xl);
+  }
+  .ch-play__activities {
+    grid-column: 1 / span 8;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.45em;
+    font-family: var(--font-display);
+    font-size: var(--step-4);
+    line-height: 1.08;
+    color: var(--cream);
+  }
+  .ch-play__activities li:not(:last-child)::after {
+    content: '·';
+    margin-left: 0.45em;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+  .ch-play__activities li:nth-child(odd) { font-style: italic; color: var(--cream-2); }
+  .ch-play__aside {
+    grid-column: 9 / -1;
+    display: grid;
+    gap: var(--space-m);
+  }
+  .ch-play :global(.ch-play__detail) { aspect-ratio: 4 / 3; }
+
+  @media (max-width: 1099px) {
+    .ch-play__activities { grid-column: 1 / -1; }
+    .ch-play__aside { grid-column: 4 / -1; }
+  }
+  @media (max-width: 699px) {
+    .ch-play__scene { min-height: 88svh; }
+    .ch-play__activities { font-size: var(--step-3); }
+    .ch-play__aside { grid-column: 1 / -1; }
+  }
+</style>

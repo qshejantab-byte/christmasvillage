@@ -1,0 +1,314 @@
+---
+import Logo from './Logo.astro';
+import CtaLink from './CtaLink.astro';
+import { navigation, site, url } from '../lib/content';
+
+interface Props {
+  overlay?: boolean;
+}
+
+const { overlay = false } = Astro.props;
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isCurrent = (href: string) => (url(href).replace(/\/$/, '') || '/') === current;
+---
+
+<header class="site-header" data-overlay={overlay ? 'true' : 'false'} data-header>
+  <div class="site-header__bar wrap">
+    <Logo width="clamp(6.75rem, 5.5rem + 3vw, 8.5rem)" />
+
+    <nav class="site-nav" aria-label="Primary">
+      <ul role="list">
+        {
+          navigation.primary.map((item) => (
+            <li>
+              <a href={url(item.href)} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <CtaLink name="planVisit" variant="line" class="site-nav__cta" />
+    </nav>
+
+    <button class="menu-toggle" type="button" aria-haspopup="dialog" aria-controls="site-menu" data-menu-open>
+      <span>Menu</span>
+      <span class="menu-toggle__icon" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<dialog class="site-menu" id="site-menu" aria-label="Site menu" data-menu>
+  <div class="site-menu__inner wrap">
+    <div class="site-menu__top">
+      <Logo width="6.75rem" />
+      <button class="menu-toggle is-open" type="button" data-menu-close>
+        <span>Close</span>
+        <span class="menu-toggle__icon" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <nav aria-label="Mobile">
+      <ol role="list" class="site-menu__links">
+        {
+          navigation.primary.map((item, i) => (
+            <li style={`--i:${i}`}>
+              <a href={url(item.href)} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                <span class="site-menu__num">0{i + 1}</span>
+                <span>{item.label}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    <div class="site-menu__foot">
+      <p class="eyebrow">{site.dates.short} · Daily {site.hours.display}</p>
+      <div class="site-menu__actions">
+        <CtaLink name="planVisit" />
+        <CtaLink name="bookStay" variant="link" />
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    height: var(--header-h);
+    color: var(--cream);
+    transition:
+      transform 0.6s var(--ease-out),
+      background-color 0.5s var(--ease-out),
+      box-shadow 0.5s var(--ease-out);
+  }
+  .site-header[data-overlay='false'],
+  .site-header[data-state='solid'] {
+    background: rgb(12 11 9 / 0.94);
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .site-header[data-overlay='true']:not([data-state='solid']) {
+    background: linear-gradient(to bottom, rgb(12 11 9 / 0.55), rgb(12 11 9 / 0));
+  }
+  .site-header[data-hidden='true'] { transform: translateY(-100%); }
+
+  .site-header__bar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-l);
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.5rem, 0.5rem + 2.5vw, 3rem);
+  }
+  .site-nav ul {
+    display: flex;
+    gap: clamp(1.25rem, 0.25rem + 2vw, 2.5rem);
+  }
+  .site-nav ul a {
+    position: relative;
+    font-size: var(--step--2);
+    font-weight: 450;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cream-2);
+    padding-block: 0.5rem;
+    transition: color var(--dur-1);
+  }
+  .site-nav ul a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.2rem;
+    height: 1px;
+    background: var(--candle);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .site-nav ul a:hover,
+  .site-nav ul a[aria-current='page'] { color: var(--cream); }
+  .site-nav ul a:hover::after,
+  .site-nav ul a[aria-current='page']::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .site-nav :global(.site-nav__cta) { min-height: 2.75rem; padding: 0.7rem 1.25rem; }
+
+  .menu-toggle {
+    display: none;
+    align-items: center;
+    gap: 0.8rem;
+    min-height: 2.75rem;
+    font-size: var(--step--2);
+    font-weight: 450;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cream);
+  }
+  .menu-toggle__icon {
+    position: relative;
+    width: 1.6rem;
+    height: 0.5rem;
+    border-block: 1px solid currentColor;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .menu-toggle.is-open .menu-toggle__icon {
+    height: 0;
+    border-bottom: 0;
+    transform: rotate(45deg);
+  }
+  .menu-toggle.is-open .menu-toggle__icon::after {
+    content: '';
+    position: absolute;
+    inset: -1px 0 auto;
+    height: 1px;
+    background: currentColor;
+    transform: rotate(-90deg);
+  }
+
+  @media (max-width: 959px) {
+    .site-nav { display: none; }
+    .menu-toggle { display: inline-flex; }
+  }
+
+  .site-menu {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    padding: 0;
+    border: 0;
+    background: var(--volcanic);
+    color: var(--cream);
+    opacity: 0;
+    transition:
+      opacity 0.45s var(--ease-out),
+      overlay 0.45s allow-discrete,
+      display 0.45s allow-discrete;
+  }
+  .site-menu[open] { opacity: 1; }
+  @starting-style {
+    .site-menu[open] { opacity: 0; }
+  }
+  .site-menu::backdrop { background: transparent; }
+
+  .site-menu__inner {
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: var(--header-h) 1fr auto;
+    padding-bottom: var(--space-l);
+  }
+  .site-menu__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .site-menu__links {
+    align-self: center;
+    display: grid;
+    gap: clamp(0.4rem, 2vh, 1.2rem);
+    padding-block: var(--space-l);
+  }
+  .site-menu__links a {
+    display: flex;
+    align-items: baseline;
+    gap: 1.1rem;
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 1.6rem + 6vw, 4.5rem);
+    line-height: 1.05;
+    color: var(--cream);
+  }
+  .site-menu__links a[aria-current='page'] span:last-child { font-style: italic; color: var(--candle); }
+  .site-menu__num {
+    font-family: var(--font-sans);
+    font-size: var(--step--2);
+    letter-spacing: 0.2em;
+    color: var(--gold-soft);
+    transform: translateY(-0.9em);
+  }
+  .site-menu__foot {
+    display: grid;
+    gap: var(--space-m);
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--line);
+  }
+  .site-menu__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-m) var(--space-l);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .site-menu__links li {
+      opacity: 0;
+      transform: translateY(1.2rem);
+      transition:
+        opacity 0.7s var(--ease-out),
+        transform 0.9s var(--ease-out);
+      transition-delay: calc(0.12s + var(--i) * 0.07s);
+    }
+    .site-menu[open] .site-menu__links li {
+      opacity: 1;
+      transform: none;
+    }
+    @starting-style {
+      .site-menu[open] .site-menu__links li { opacity: 0; transform: translateY(1.2rem); }
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const menu = document.querySelector<HTMLDialogElement>('[data-menu]');
+  const openBtn = document.querySelector<HTMLButtonElement>('[data-menu-open]');
+  const closeBtn = document.querySelector<HTMLButtonElement>('[data-menu-close]');
+
+  if (header) {
+    let lastY = window.scrollY;
+    let ticking = false;
+    const update = () => {
+      const y = window.scrollY;
+      const threshold = header.dataset.overlay === 'true' ? window.innerHeight * 0.6 : 8;
+      header.dataset.state = y > threshold ? 'solid' : 'clear';
+      header.dataset.hidden = y > window.innerHeight && y > lastY + 4 ? 'true' : y < lastY - 4 || y < window.innerHeight ? 'false' : header.dataset.hidden;
+      lastY = y;
+      ticking = false;
+    };
+    update();
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(update);
+          ticking = true;
+        }
+      },
+      { passive: true },
+    );
+    header.addEventListener('focusin', () => (header.dataset.hidden = 'false'));
+  }
+
+  openBtn?.addEventListener('click', () => {
+    menu?.showModal();
+    document.documentElement.style.overflow = 'hidden';
+  });
+  closeBtn?.addEventListener('click', () => menu?.close());
+  menu?.addEventListener('close', () => {
+    document.documentElement.style.overflow = '';
+    openBtn?.focus();
+  });
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => menu.close()));
+  matchMedia('(min-width: 960px)').addEventListener('change', (e) => e.matches && menu?.open && menu.close());
+</script>

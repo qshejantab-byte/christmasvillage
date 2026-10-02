@@ -1,0 +1,122 @@
+---
+import { Picture } from 'astro:assets';
+import Lines from '../editorial/Lines.astro';
+import CtaLink from '../CtaLink.astro';
+import villageMap from '../../assets/map/village-map.jpg';
+import { home, site, zones, url } from '../../lib/content';
+
+const t = home.mapTeaser;
+const pins = zones.flatMap((z) => z.hotspots.map((h) => ({ ...h, n: z.n })));
+---
+
+<section class="map-teaser" id="village-map" aria-labelledby="map-teaser-title">
+  <div class="wrap grid map-teaser__grid">
+    <div class="map-teaser__text">
+      <p class="eyebrow" data-reveal="fade">{t.eyebrow}</p>
+      <Lines as="h2" id="map-teaser-title" class="h-xl" lines={t.titleLines} />
+      <p class="map-teaser__body" data-reveal style="--i:1">{t.body}</p>
+      <div data-reveal style="--i:2">
+        <CtaLink name="exploreMap" />
+      </div>
+      <p class="small map-teaser__note" data-reveal style="--i:3">{site.mapStatus.note}</p>
+    </div>
+
+    <a class="map-teaser__object" href={url('/map')} data-reveal="rise" aria-label="Open the interactive Village map">
+      <span class="map-teaser__paper">
+        <Picture
+          src={villageMap}
+          alt="Illustrated watercolour map of Christmas Village 2026 by Grotta Resort, showing the Gate, hotel, restaurants, pools, sports fields, cinema, farm and cave."
+          widths={[480, 760, 1100, 1500]}
+          sizes="(min-width: 1100px) 40vw, (min-width: 700px) 70vw, 92vw"
+          formats={['avif', 'webp']}
+          quality={78}
+          loading="lazy"
+        />
+        <span class="map-teaser__pins" aria-hidden="true">
+          {pins.map((p, i) => <span class="map-teaser__pin" style={`left:${p.x}%;top:${p.y}%;--i:${i}`}>{p.n}</span>)}
+        </span>
+      </span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .map-teaser {
+    position: relative;
+    padding-block: var(--space-2xl);
+    background:
+      radial-gradient(60% 50% at 70% 50%, rgb(241 196 126 / 0.08), rgb(241 196 126 / 0) 70%),
+      var(--volcanic);
+    overflow: clip;
+  }
+  .map-teaser__grid { align-items: center; row-gap: var(--space-xl); }
+  .map-teaser__text {
+    grid-column: 1 / span 5;
+    display: grid;
+    gap: var(--space-m);
+    justify-items: start;
+  }
+  .map-teaser__body { max-width: 40ch; }
+  .map-teaser__note { max-width: 36ch; font-style: italic; }
+
+  .map-teaser__object {
+    grid-column: 7 / -1;
+    justify-self: center;
+    width: min(100%, 38rem);
+    display: block;
+  }
+  .map-teaser__paper {
+    position: relative;
+    display: block;
+    padding: clamp(0.5rem, 0.3rem + 0.8vw, 1rem);
+    background: #f4efe4;
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.4) inset,
+      0 60px 120px -40px rgb(0 0 0 / 0.85),
+      0 20px 40px -20px rgb(0 0 0 / 0.6);
+    transform: rotate(-2.2deg);
+    transition: transform 1.2s var(--ease-out);
+  }
+  .map-teaser__paper :global(img) { width: 100%; height: auto; }
+  .map-teaser__object:hover .map-teaser__paper,
+  .map-teaser__object:focus-visible .map-teaser__paper { transform: rotate(0deg) scale(1.015); }
+
+  .map-teaser__pins {
+    position: absolute;
+    inset: clamp(0.5rem, 0.3rem + 0.8vw, 1rem);
+  }
+  .map-teaser__pin {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: 1.35rem;
+    height: 1.35rem;
+    margin: -0.675rem 0 0 -0.675rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 0.6rem;
+    font-weight: 500;
+    box-shadow: 0 0 0 2px rgb(244 239 228 / 0.9), 0 4px 10px rgb(0 0 0 / 0.35);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .js .map-teaser__pin {
+      opacity: 0;
+      transform: scale(0.4);
+      transition: opacity 0.5s var(--ease-out), transform 0.6s var(--ease-out);
+      transition-delay: calc(0.9s + var(--i) * 45ms);
+    }
+    .js .map-teaser__object.is-in .map-teaser__pin { opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 1099px) {
+    .map-teaser__text { grid-column: 1 / span 6; }
+    .map-teaser__object { grid-column: 7 / -1; }
+  }
+  @media (max-width: 799px) {
+    .map-teaser__text, .map-teaser__object { grid-column: 1 / -1; }
+    .map-teaser__object { width: min(100%, 30rem); }
+    .map-teaser__paper { transform: rotate(-1.2deg); }
+    .map-teaser__pin { width: 1.1rem; height: 1.1rem; margin: -0.55rem 0 0 -0.55rem; font-size: 0.5rem; }
+  }
+</style>

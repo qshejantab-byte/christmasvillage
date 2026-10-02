@@ -1,0 +1,394 @@
+---
+import { Picture } from 'astro:assets';
+import villageMap from '../../assets/map/village-map.jpg';
+import { chapters, site, zones } from '../../lib/content';
+
+const chapterName = (id: string) => chapters.find((c) => c.id === id)?.name ?? '';
+const pad = (n: number) => String(n).padStart(2, '0');
+const groups = chapters.map((c) => ({ ...c, zones: zones.filter((z) => z.chapter === c.id) }));
+---
+
+<section class="explorer" data-explorer aria-labelledby="explorer-title">
+  <aside class="explorer__guide">
+    <header class="explorer__intro">
+      <p class="eyebrow">Explore the Village</p>
+      <h1 class="h-l" id="explorer-title">The Village <em>Map</em></h1>
+      <p class="small">
+        Eighteen stops along the guest journey. Select one to find it on the map — or wander the illustration freely.
+      </p>
+    </header>
+
+    <nav class="explorer__list" aria-label="Village stops">
+      {
+        groups.map((g) => (
+          <div class="explorer__group">
+            <h2 class="explorer__group-title">
+              <span>{g.number}</span> {g.name}
+            </h2>
+            <ul role="list">
+              {g.zones.map((z) => (
+                <li>
+                  <button type="button" data-select={z.id} aria-pressed="false" aria-controls="explorer-card">
+                    <span class="explorer__n">{pad(z.n)}</span>
+                    <span class="explorer__zname">{z.name}</span>
+                    {!z.hotspots.length && <span class="explorer__off" title="Not marked on the illustrated map">—</span>}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </nav>
+  </aside>
+
+  <div class="explorer__stagewrap">
+    <div
+      class="explorer__stage"
+      data-stage
+      tabindex="0"
+      role="application"
+      aria-roledescription="interactive map"
+      aria-label="Illustrated Village map. Use arrow keys to pan, plus and minus to zoom, zero to reset."
+    >
+      <div class="explorer__layer" data-layer data-w={villageMap.width} data-h={villageMap.height} style={`width:${villageMap.width}px;height:${villageMap.height}px`}>
+        <Picture
+          src={villageMap}
+          alt="Illustrated watercolour map of Christmas Village 2026 by Grotta Resort."
+          widths={[1000, 1500, villageMap.width]}
+          sizes={`${villageMap.width}px`}
+          formats={['avif', 'webp']}
+          quality={82}
+          loading="eager"
+          fetchpriority="high"
+          draggable="false"
+        />
+        {
+          zones.flatMap((z) =>
+            z.hotspots.map((h, i) => (
+              <button
+                type="button"
+                class="pin"
+                style={`left:${h.x}%;top:${h.y}%`}
+                data-select={z.id}
+                aria-pressed="false"
+                aria-label={`${z.n}. ${z.name}`}
+                tabindex={i === 0 ? undefined : '-1'}
+              >
+                <span>{z.n}</span>
+              </button>
+            )),
+          )
+        }
+      </div>
+    </div>
+
+    <div class="explorer__controls" role="group" aria-label="Map zoom">
+      <button type="button" data-zoom="in" aria-label="Zoom in">+</button>
+      <button type="button" data-zoom="out" aria-label="Zoom out">−</button>
+      <button type="button" data-zoom="fit" aria-label="Show the whole map">
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4" fill="none" stroke="currentColor" stroke-width="1.2" /></svg>
+      </button>
+    </div>
+
+    <p class="explorer__hint" aria-hidden="true">
+      <span class="explorer__hint-fine">Drag to explore · Ctrl + scroll to zoom</span>
+      <span class="explorer__hint-touch">Pinch to zoom · Drag to explore</span>
+    </p>
+    <p class="explorer__note">{site.mapStatus.note}</p>
+
+    <div class="explorer__card" id="explorer-card" data-card hidden aria-live="polite">
+      {
+        zones.map((z) => (
+          <article data-detail={z.id} hidden>
+            <p class="explorer__card-meta">
+              <span>Stop {pad(z.n)}</span>
+              <span>{chapterName(z.chapter)}</span>
+            </p>
+            <h2 class="h-m">{z.name}</h2>
+            <p>{z.summary}</p>
+            {z.mapLabel && z.mapLabel !== z.name && <p class="explorer__card-label">Drawn on the map as “{z.mapLabel}”</p>}
+            {!z.hotspots.length && <p class="explorer__card-label">Not marked on the illustrated map.</p>}
+          </article>
+        ))
+      }
+      <div class="explorer__card-nav">
+        <button type="button" data-step="-1" aria-label="Previous stop">← Prev</button>
+        <button type="button" data-step="1" aria-label="Next stop">Next →</button>
+        <button type="button" data-close aria-label="Close details">Close</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .explorer {
+    display: grid;
+    grid-template-columns: minmax(18rem, 25rem) 1fr;
+    height: calc(100svh - var(--header-h));
+    margin-top: var(--header-h);
+    background: var(--volcanic);
+  }
+
+  .explorer__guide {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    min-height: 0;
+    border-right: 1px solid var(--line);
+  }
+  .explorer__intro {
+    display: grid;
+    gap: var(--space-xs);
+    padding: var(--space-l) var(--space-l) var(--space-m);
+    border-bottom: 1px solid var(--line);
+  }
+  .explorer__list {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: var(--space-s) var(--space-l) var(--space-l);
+    scrollbar-width: thin;
+    scrollbar-color: var(--ash) transparent;
+  }
+  .explorer__group + .explorer__group { margin-top: var(--space-m); }
+  .explorer__group-title {
+    display: flex;
+    gap: 0.6rem;
+    padding-block: 0.6rem;
+    font-size: var(--step--2);
+    font-weight: 450;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+  }
+  .explorer__group-title span { opacity: 0.6; }
+  .explorer__list button {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2rem 1fr auto;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.55rem 0;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    transition: color var(--dur-1), padding 0.4s var(--ease-out);
+  }
+  .explorer__n {
+    font-size: var(--step--2);
+    letter-spacing: 0.12em;
+    color: var(--mist);
+  }
+  .explorer__zname {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    line-height: 1.25;
+    color: var(--cream);
+  }
+  .explorer__off { color: var(--mist-dim); }
+  .explorer__list button:hover .explorer__zname { color: var(--candle); }
+  .explorer__list button[aria-pressed='true'] { padding-left: 0.5rem; }
+  .explorer__list button[aria-pressed='true'] .explorer__zname { color: var(--candle); font-style: italic; }
+  .explorer__list button[aria-pressed='true'] .explorer__n { color: var(--candle); }
+
+  .explorer__stagewrap {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    background: #e9e4d8;
+  }
+  .explorer__stage {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .explorer[data-zoomed='true'] .explorer__stage { touch-action: none; }
+  .explorer__stage.is-dragging { cursor: grabbing; }
+  .explorer__stage:focus-visible { outline-offset: -4px; outline-color: var(--ink); }
+  .explorer__layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform-origin: 0 0;
+    --inv: 1;
+  }
+  .explorer__layer.is-animating { transition: transform 0.9s var(--ease-cine); }
+  .explorer__layer :global(img) {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    -webkit-user-drag: none;
+  }
+
+  .pin {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    transform: translate(-50%, -50%) scale(var(--inv));
+    transform-origin: center;
+  }
+  .pin span {
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 0.72rem;
+    font-weight: 500;
+    box-shadow: 0 0 0 2px rgb(244 239 228 / 0.95), 0 6px 14px rgb(0 0 0 / 0.35);
+    transition: transform 0.4s var(--ease-out), background-color 0.3s;
+  }
+  .pin:hover span { transform: scale(1.15); }
+  .pin[aria-pressed='true'] span {
+    background: #9a3f1c;
+    transform: scale(1.3);
+    box-shadow: 0 0 0 2px #f4efe4, 0 0 0 7px rgb(154 63 28 / 0.25), 0 8px 18px rgb(0 0 0 / 0.4);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .pin[aria-pressed='true']::before {
+      content: '';
+      position: absolute;
+      inset: -0.4rem;
+      border-radius: 50%;
+      box-shadow: 0 0 0 1px rgb(154 63 28 / 0.6);
+      animation: halo 2.2s var(--ease-out) infinite;
+    }
+  }
+  @keyframes halo {
+    from { transform: scale(0.7); opacity: 1; }
+    to { transform: scale(1.8); opacity: 0; }
+  }
+
+  .explorer__controls {
+    position: absolute;
+    top: var(--space-m);
+    right: var(--space-m);
+    z-index: 3;
+    display: grid;
+    background: rgb(27 24 19 / 0.88);
+  }
+  .explorer__controls button {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    color: var(--cream);
+    font-size: 1.25rem;
+    font-weight: 300;
+    transition: background-color var(--dur-1), color var(--dur-1);
+  }
+  .explorer__controls button + button { box-shadow: 0 -1px 0 var(--line); }
+  .explorer__controls button:hover:not(:disabled) { background: var(--candle); color: var(--ink); }
+  .explorer__controls button:disabled { opacity: 0.35; cursor: default; }
+
+  .explorer__hint,
+  .explorer__note {
+    position: absolute;
+    z-index: 2;
+    font-size: var(--step--2);
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    pointer-events: none;
+  }
+  .explorer__hint { top: var(--space-m); left: var(--space-m); }
+  .explorer__hint-touch { display: none; }
+  @media (pointer: coarse) {
+    .explorer__hint-fine { display: none; }
+    .explorer__hint-touch { display: inline; }
+  }
+  .explorer__note {
+    right: var(--space-m);
+    bottom: var(--space-s);
+    font-style: italic;
+    text-align: right;
+    max-width: 22rem;
+  }
+
+  .explorer__card {
+    position: absolute;
+    left: var(--space-m);
+    bottom: var(--space-m);
+    z-index: 4;
+    width: min(24rem, calc(100% - 2 * var(--space-m)));
+    display: grid;
+    gap: var(--space-s);
+    padding: var(--space-m) var(--space-m) var(--space-s);
+    background: var(--volcanic);
+    color: var(--cream-2);
+    box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.55);
+  }
+  .explorer__card:not([hidden]) { animation: card-in 0.6s var(--ease-out) both; }
+  @keyframes card-in {
+    from { opacity: 0; transform: translateY(1rem); }
+  }
+  .explorer__card article { display: grid; gap: 0.5rem; }
+  .explorer__card article p { font-size: var(--step--1); }
+  .explorer__card-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: var(--step--2) !important;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+  }
+  .explorer__card-label {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.05rem !important;
+    color: var(--mist);
+  }
+  .explorer__card-nav {
+    display: flex;
+    gap: var(--space-m);
+    padding-top: var(--space-xs);
+    border-top: 1px solid var(--line);
+  }
+  .explorer__card-nav button {
+    min-height: 2.75rem;
+    font-size: var(--step--2);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream);
+    transition: color var(--dur-1);
+  }
+  .explorer__card-nav button:hover { color: var(--candle); }
+  .explorer__card-nav [data-close] { margin-left: auto; color: var(--mist); }
+
+  @media (max-width: 899px) {
+    .explorer {
+      grid-template-columns: 1fr;
+      height: auto;
+    }
+    .explorer__stagewrap {
+      order: -1;
+      height: calc(100svh - var(--header-h) - 4.5rem);
+      min-height: 26rem;
+    }
+    .explorer__guide { border-right: 0; }
+    .explorer__intro { padding: var(--space-l) var(--gutter) var(--space-m); }
+    .explorer__list { overflow: visible; padding-inline: var(--gutter); }
+    .explorer__card {
+      left: var(--space-s);
+      right: var(--space-s);
+      bottom: var(--space-s);
+      width: auto;
+      max-height: 55%;
+      overflow-y: auto;
+    }
+    .explorer__note { left: var(--space-s); right: auto; bottom: auto; top: calc(var(--space-m) + 1.4rem); text-align: left; }
+    .explorer__hint { left: var(--space-s); }
+    .explorer__controls { top: var(--space-s); right: var(--space-s); }
+  }
+</style>
+
+<script>
+  import { initMapExplorer } from '../../scripts/map-explorer';
+  document.querySelectorAll<HTMLElement>('[data-explorer]').forEach(initMapExplorer);
+</script>

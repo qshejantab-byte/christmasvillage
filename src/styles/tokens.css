@@ -1,0 +1,57 @@
+:root {
+  --volcanic: #0c0b09;
+  --volcanic-2: #12110e;
+  --basalt: #1b1915;
+  --ash: #2a2722;
+  --cream: #f2ead9;
+  --cream-2: #d8cfbb;
+  --mist: #a39c8e;
+  --mist-dim: #706a5f;
+  --paper: #eee4cf;
+  --paper-2: #e3d6ba;
+  --ink: #1b1813;
+  --ink-soft: #4d463a;
+  --gold: #c9a552;
+  --gold-soft: #d8bf88;
+  --evergreen: #24443a;
+  --evergreen-deep: #101d19;
+  --ember: #cf8a4c;
+  --candle: #f1c47e;
+  --line: rgb(242 234 217 / 0.14);
+  --line-strong: rgb(242 234 217 / 0.3);
+  --line-ink: rgb(27 24 19 / 0.16);
+
+  --font-display: 'Cormorant Garamond Variable', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Jost Variable', 'Jost', ui-sans-serif, system-ui, sans-serif;
+
+  --step--2: clamp(0.69rem, 0.67rem + 0.1vw, 0.75rem);
+  --step--1: clamp(0.81rem, 0.78rem + 0.15vw, 0.9rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --step-1: clamp(1.25rem, 1.12rem + 0.6vw, 1.6rem);
+  --step-2: clamp(1.6rem, 1.3rem + 1.3vw, 2.4rem);
+  --step-3: clamp(2.1rem, 1.5rem + 2.6vw, 3.8rem);
+  --step-4: clamp(2.6rem, 1.6rem + 4.4vw, 5.8rem);
+  --step-5: clamp(3.1rem, 1.4rem + 7.6vw, 9.25rem);
+
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: clamp(2rem, 1.6rem + 1.6vw, 3rem);
+  --space-xl: clamp(3rem, 2rem + 4vw, 6rem);
+  --space-2xl: clamp(5rem, 3rem + 8vw, 10rem);
+  --space-3xl: clamp(6.5rem, 3.5rem + 12vw, 15rem);
+
+  --gutter: clamp(1.25rem, 0.6rem + 3vw, 4.5rem);
+  --col-gap: clamp(1rem, 0.5rem + 1.8vw, 2.5rem);
+  --max: 1520px;
+  --header-h: clamp(4.25rem, 3.8rem + 1.5vw, 5.5rem);
+
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-cine: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-soft: cubic-bezier(0.33, 0, 0.15, 1);
+  --dur-1: 0.3s;
+  --dur-2: 0.8s;
+  --dur-3: 1.3s;
+}

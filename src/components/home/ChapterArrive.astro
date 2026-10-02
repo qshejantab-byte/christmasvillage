@@ -1,0 +1,121 @@
+---
+import Media from '../media/Media.astro';
+import ChapterMark from '../editorial/ChapterMark.astro';
+import Lines from '../editorial/Lines.astro';
+import { chapter, zonesFor } from '../../lib/content';
+
+const c = chapter('arrive');
+const stops = zonesFor('arrive');
+const positions = ['First', 'On your left', 'On your right'];
+---
+
+<section class="ch-arrive" id="chapter-arrive" data-chapter="arrive" aria-labelledby="arrive-title">
+  <Media slot={c.media[0]} class="ch-arrive__media" sizes="100vw" parallax="9%" reveal />
+
+  <div class="wrap ch-arrive__head">
+    <ChapterMark chapter={c} />
+    <Lines as="h2" id="arrive-title" class="display ch-arrive__title" lines={c.titleLines ?? [c.title]} />
+  </div>
+
+  <div class="wrap grid ch-arrive__body">
+    <div class="ch-arrive__text">
+      <p class="lede" data-reveal>{c.lede}</p>
+      {c.body && <p class="ch-arrive__sub" data-reveal style="--i:1">{c.body}</p>}
+    </div>
+
+    <ol class="ch-arrive__route" role="list" aria-label="Arrival sequence">
+      {
+        stops.map((z, i) => (
+          <li data-reveal style={`--i:${i + 1}`}>
+            <span class="ch-arrive__pos">{positions[i] ?? `Stop ${z.n}`}</span>
+            <span class="ch-arrive__stop">{z.name}</span>
+            <span class="small">{z.summary}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .ch-arrive {
+    position: relative;
+    padding-bottom: var(--space-2xl);
+  }
+  .ch-arrive :global(.ch-arrive__media) {
+    height: clamp(26rem, 78svh, 56rem);
+  }
+  .ch-arrive :global(.ch-arrive__media)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--volcanic) 0%, rgb(12 11 9 / 0) 45%);
+  }
+  .ch-arrive__head {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: var(--space-m);
+    margin-top: calc(var(--step-5) * -1.35);
+  }
+  .ch-arrive__title {
+    font-size: var(--step-5);
+    line-height: 0.92;
+    max-width: 12ch;
+  }
+  .ch-arrive__body {
+    margin-top: var(--space-xl);
+    row-gap: var(--space-xl);
+  }
+  .ch-arrive__text {
+    grid-column: 1 / span 6;
+    display: grid;
+    gap: var(--space-m);
+    align-content: start;
+  }
+  .ch-arrive__sub { max-width: 46ch; }
+  .ch-arrive__route {
+    grid-column: 8 / -1;
+    display: grid;
+    counter-reset: stop;
+  }
+  .ch-arrive__route li {
+    position: relative;
+    display: grid;
+    gap: 0.3rem;
+    padding: var(--space-m) 0 var(--space-m) 2.6rem;
+    border-top: 1px solid var(--line);
+  }
+  .ch-arrive__route li::before {
+    counter-increment: stop;
+    content: counter(stop, upper-roman);
+    position: absolute;
+    left: 0;
+    top: calc(var(--space-m) + 0.1rem);
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--gold-soft);
+  }
+  .ch-arrive__pos {
+    font-size: var(--step--2);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+  .ch-arrive__stop {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: 1.1;
+    color: var(--cream);
+  }
+
+  @media (max-width: 1099px) {
+    .ch-arrive__text { grid-column: 1 / span 7; }
+    .ch-arrive__route { grid-column: 1 / -1; }
+  }
+  @media (max-width: 699px) {
+    .ch-arrive :global(.ch-arrive__media) { height: 62svh; }
+    .ch-arrive__head { margin-top: calc(var(--step-5) * -1.1); }
+    .ch-arrive__text { grid-column: 1 / -1; }
+  }
+</style>

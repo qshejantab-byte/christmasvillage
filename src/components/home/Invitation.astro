@@ -1,0 +1,79 @@
+---
+import Media from '../media/Media.astro';
+import Lines from '../editorial/Lines.astro';
+import CtaLink from '../CtaLink.astro';
+import { home, site } from '../../lib/content';
+
+const t = home.invitation;
+---
+
+<section class="invitation" aria-labelledby="invitation-title">
+  <Media slot="invitation" class="invitation__media" sizes="100vw" widths={[768, 1400]} parallax="10%" />
+  <div class="invitation__veil" aria-hidden="true"></div>
+
+  <div class="wrap invitation__content">
+    <p class="eyebrow" data-reveal="fade">{t.eyebrow}</p>
+    <Lines as="h2" id="invitation-title" class="display invitation__title" lines={t.titleLines} />
+    <p class="invitation__when" data-reveal style="--i:2">
+      <span>{site.dates.display}</span>
+      <span aria-hidden="true">·</span>
+      <span>Every day, {site.hours.display}</span>
+    </p>
+    <div class="invitation__actions" data-reveal style="--i:3">
+      <CtaLink name="planVisit" />
+      <CtaLink name="exploreMap" variant="link" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .invitation {
+    position: relative;
+    min-height: 92svh;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    text-align: center;
+  }
+  .invitation :global(.invitation__media) {
+    position: absolute;
+    inset: 0;
+  }
+  .invitation :global(.invitation__media img) { filter: saturate(1.1); }
+  .invitation__veil {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(60% 55% at 50% 50%, rgb(12 11 9 / 0.35), rgb(12 11 9 / 0.85)),
+      linear-gradient(to bottom, var(--volcanic), rgb(12 11 9 / 0) 25%, rgb(12 11 9 / 0) 75%, var(--volcanic-2));
+  }
+  .invitation__content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    justify-items: center;
+    gap: var(--space-m);
+    padding-block: var(--space-2xl);
+  }
+  .invitation__title {
+    font-size: var(--step-4);
+    line-height: 1;
+  }
+  .invitation__when {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem 0.8rem;
+    font-size: var(--step--1);
+    letter-spacing: 0.08em;
+    color: var(--cream);
+  }
+  .invitation__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-m) var(--space-l);
+    margin-top: var(--space-s);
+  }
+</style>

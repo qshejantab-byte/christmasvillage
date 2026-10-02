@@ -1,0 +1,80 @@
+[
+  {
+    "id": "event",
+    "title": "Event Information",
+    "items": [
+      { "q": "What is Grotta Christmas Village?", "a": "Grotta Christmas Village is a festive destination experience at Grotta Resort in Musanze, bringing together Christmas lights, seasonal food, live entertainment, family activities, cinema, crafts, photo moments, the Mini Farm and Bunny Village, swimming, sports and festive accommodation.", "status": "confirmed" },
+      { "q": "When does Grotta Christmas Village take place?", "a": "The Village operates every day from 18 December 2026 through 10 January 2027.", "status": "confirmed" },
+      { "q": "What are the daily opening hours?", "a": "The Village is open from 12:00 PM to 10:00 PM daily.", "status": "confirmed" },
+      { "q": "Is the Village open on the main holiday dates?", "a": "Yes. It remains open on 24 and 25 December, 31 December and 1 January. These are expected to be high-demand dates, so guests should plan and arrive early.", "status": "confirmed" },
+      { "q": "Where is Grotta Christmas Village located?", "a": "It is hosted at Grotta Resort in Musanze, Rwanda. The official map link and arrival directions will be published here once approved.", "status": "confirmed" }
+    ]
+  },
+  {
+    "id": "tickets",
+    "title": "Tickets, Wristbands & Payments",
+    "items": [
+      { "q": "How much is the ticket?", "a": "The public ticket price is RWF 50,000 for both adults and children. There is no reduced child ticket price.", "status": "confirmed" },
+      { "q": "Do children pay the same ticket price as adults?", "a": "Yes. Children and adults pay the same public ticket price of RWF 50,000. No separate infant exemption or reduced infant price is offered under the confirmed policy.", "status": "confirmed" },
+      { "q": "What does the RWF 50,000 ticket include?", "a": "The ticket includes access to the Christmas Village and RWF 30,000 in consumable credit loaded onto a QR wristband. The remaining RWF 20,000 is the access value.", "status": "confirmed" },
+      { "q": "How do I receive my wristband?", "a": "After your payment is verified at the Sales Pavilion, a unique QR wristband is assigned to you and the RWF 30,000 consumable credit is loaded onto it.", "status": "confirmed" },
+      { "q": "How do I pay vendors inside the Village?", "a": "Present your QR wristband to the vendor. The vendor scans it, confirms the purchase amount with you and deducts that amount from your wristband balance.", "status": "confirmed" },
+      { "q": "Can I pay a vendor directly with cash, Mobile Money or a bank card?", "a": "No. Vendors do not receive money directly from guests. All vendor purchases are charged against the available balance on the QR wristband.", "status": "confirmed" },
+      { "q": "Where can I top up my wristband?", "a": "Top-ups are made only at authorized cashier or top-up booths. Staff must verify payment before loading credit. A guest may top up the wristband to a maximum total balance of RWF 1,000,000.", "status": "confirmed" },
+      { "q": "Will I see my remaining balance after a purchase?", "a": "Yes. The system is designed to show the balance before and after each deduction and to maintain a transaction record.", "status": "confirmed" },
+      { "q": "What should I do if my wristband is lost?", "a": "Report the loss immediately to the official support desk so the wristband can be blocked. After an investigation and verification of the wristband record, the confirmed remaining balance can be transferred to a replacement wristband.", "status": "confirmed" },
+      { "q": "Can unused wristband credit be refunded or used on another day?", "a": "At the end of the visit, a guest may request a refund of any verified remaining wristband balance. Refunds are processed through the authorized refund point after the balance and transaction history are checked.", "status": "confirmed" }
+    ]
+  },
+  {
+    "id": "experiences",
+    "title": "Experiences & Activities",
+    "items": [
+      { "q": "What can visitors experience?", "a": "Experiences are planned across the Village, including caroling bands, the Frosted Restaurant, Santa's Office, Elf's Bar, pool and sports areas, children's play, the North Pole Cinema and activity tent, EZfun crafts and interactive digital games, festive food stalls, the Nativity area, the Mini Farm and Bunny Village, the cave route, the Grinch area and photo experiences.", "status": "confirmed" },
+      { "q": "Are there activities for children?", "a": "Yes. Family experiences include Santa's Office, children's play, cinema, EZfun craft activities and interactive digital games, a bouncy castle, the Mini Farm and Bunny Village, and other child-friendly attractions. Age suitability, capacity and caregiver rules for individual activities will be communicated on-site.", "status": "confirmed" },
+      { "q": "Is swimming available?", "a": "Yes. The pool area is part of the planned guest experience. Pool access is subject to operating capacity, supervision and safety rules.", "status": "confirmed" },
+      { "q": "Are pool towels provided?", "a": "Pool towels are available for a RWF 5,000 fee plus a refundable deposit. The final deposit amount and accepted deposit method will be confirmed before opening.", "status": "confirmed" },
+      { "q": "Will there be a daily entertainment schedule?", "a": "Yes. Daily schedules for caroling, cinema, stage activities and children's programming will be published through official Grotta channels and displayed at the Village.", "status": "confirmed" }
+    ]
+  },
+  {
+    "id": "food",
+    "title": "Food & Drink",
+    "items": [
+      { "q": "What food and drinks will be available?", "a": "Planned options include à la carte dining at the Frosted Restaurant, BBQ, pilau, waffles and sweets, popcorn, cotton candy, hot chocolate, hot wine, bar service and selected poolside drinks and snacks.", "status": "confirmed" },
+      { "q": "How do I pay for food and drinks?", "a": "Food and drink purchases are deducted from your QR wristband balance. Food outlets and vendors do not accept direct payment from guests.", "status": "confirmed" },
+      { "q": "Is alcohol served?", "a": "Yes. Alcohol is planned at designated outlets, including Elf's Bar. Age verification and outlet safety rules apply.", "status": "confirmed" },
+      { "q": "What if I have allergies or dietary requirements?", "a": "Please ask the relevant outlet before ordering. Final menus and allergen information are being completed. Guests with serious allergies should speak directly with the outlet lead before purchasing.", "status": "confirmed" },
+      { "q": "Can I bring outside food or drinks?", "a": "No. Outside food and drinks are strictly prohibited inside Grotta Christmas Village.", "status": "confirmed" }
+    ]
+  },
+  {
+    "id": "access",
+    "title": "Hotel Guests, Access & Arrival",
+    "items": [
+      { "q": "Can non-hotel guests visit the Village?", "a": "Yes. The public ticket is designed for day visitors as well as guests visiting the resort.", "status": "confirmed" },
+      { "q": "Do hotel residents need a separate Village ticket?", "a": "Guests staying at Grotta Resort receive complimentary access to the Christmas Village and do not need to buy the public entry ticket. Consumable credit is not included automatically. Resident guests must load or top up their QR wristband before purchasing food, drinks, products or paid activities.", "status": "confirmed" },
+      { "q": "Is parking available?", "a": "Hotel guests will park inside the hotel grounds. Christmas Village day visitors will use the designated external Village parking area. Guests must follow parking marshals and directional signs.", "status": "confirmed" },
+      { "q": "Can I leave and re-enter the Village?", "a": "Same-day re-entry is allowed with the same valid wristband. The wristband cannot be used for entry on another day.", "status": "confirmed" }
+    ]
+  },
+  {
+    "id": "safety",
+    "title": "Safety, Weather & Guest Support",
+    "items": [
+      { "q": "Is the Village suitable for families?", "a": "Yes. Grotta Christmas Village is designed as a family-friendly experience. Children must remain under the supervision of a parent or responsible caregiver unless a specific activity is formally supervised.", "status": "confirmed" },
+      { "q": "What happens if it rains?", "a": "Some activities may be adjusted, paused or moved for safety. Guests should follow staff instructions and check official updates before travelling during severe weather.", "status": "confirmed" },
+      { "q": "Is first aid available?", "a": "The final operating plan requires first-aid coverage and emergency readiness throughout the event.", "status": "confirmed" },
+      { "q": "What should I do if I lose an item or need assistance?", "a": "Visit the Sales Pavilion, official support desk or Grotta Reception. Staff will direct you to the appropriate guest-support team.", "status": "confirmed" }
+    ]
+  },
+  {
+    "id": "booking",
+    "title": "Booking, Updates & Contact",
+    "items": [
+      { "q": "Should I book before visiting?", "a": "Advance planning is strongly recommended, especially for 24 and 25 December, 31 December and 1 January. Capacity and stop-entry rules will be communicated once approved.", "status": "confirmed" },
+      { "q": "Where can I find the latest schedule and updates?", "a": "Use Grotta Resort's official website, social media pages, WhatsApp channel and on-site information points. Only information published through official Grotta channels should be treated as confirmed.", "status": "confirmed" },
+      { "q": "How can I contact Grotta Resort?", "a": "Official telephone, WhatsApp, email and booking details will be published here once approved.", "status": "pending" }
+    ]
+  }
+]

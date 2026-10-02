@@ -1,0 +1,34 @@
+{
+  "planVisit": {
+    "label": "Plan Your Visit",
+    "href": "/visit",
+    "external": false,
+    "status": "confirmed"
+  },
+  "exploreMap": {
+    "label": "Explore the Map",
+    "href": "/map",
+    "external": false,
+    "status": "confirmed"
+  },
+  "bookStay": {
+    "label": "Book a Festive Stay",
+    "href": "https://live.ipms247.com/booking/book-rooms-grottamusanze",
+    "external": true,
+    "status": "confirmed",
+    "note": "Grotta Resort's live accommodation booking engine, as linked from the main Grotta website. Not a Christmas package URL."
+  },
+  "bookVillage": {
+    "label": "Book Your Village Visit",
+    "href": null,
+    "external": true,
+    "status": "pending",
+    "note": "No online Village booking exists; tickets are sold at the Sales Pavilion."
+  },
+  "contact": {
+    "label": "Contact Grotta Resort",
+    "href": null,
+    "external": true,
+    "status": "pending"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "name": "Grotta Christmas Village 2026",
+  "shortName": "Christmas Village",
+  "brand": "Grotta Resort",
+  "location": { "town": "Musanze", "country": "Rwanda", "status": "confirmed", "source": "FAQ v3 §1" },
+  "description": "Grotta Christmas Village is a festive destination experience at Grotta Resort in Musanze, bringing together Christmas lights, seasonal food, live entertainment, family activities, cinema, crafts, photo moments, the Mini Farm and Bunny Village, swimming, sports and festive accommodation.",
+  "sourceNote": "Master Plan v3.1 and Website FAQ v3, 30 September 2026",
+
+  "dates": {
+    "start": "2026-12-18",
+    "end": "2027-01-10",
+    "display": "18 December 2026 – 10 January 2027",
+    "short": "18 Dec – 10 Jan",
+    "days": 24,
+    "status": "confirmed",
+    "source": "Master Plan v3.1 §1"
+  },
+  "hours": { "display": "12:00 PM – 10:00 PM", "note": "Open every day", "status": "confirmed", "source": "Master Plan v3.1 §1" },
+  "highDemand": {
+    "dates": ["24 December", "25 December", "31 December", "1 January"],
+    "display": "24 & 25 December · 31 December & 1 January",
+    "note": "The Village remains open on these dates. Higher attendance is expected, so plan ahead and arrive early.",
+    "status": "confirmed",
+    "source": "Master Plan v3.1 §8"
+  },
+
+  "ticket": {
+    "price": "RWF 50,000",
+    "credit": "RWF 30,000",
+    "access": "RWF 20,000",
+    "appliesTo": "Adults and children alike — there is no reduced child or infant price.",
+    "status": "confirmed",
+    "source": "FAQ v3 §2"
+  },
+  "wristband": {
+    "maxBalance": "RWF 1,000,000",
+    "status": "confirmed",
+    "source": "FAQ v3 §2"
+  },
+  "residents": {
+    "text": "Guests staying at Grotta Resort receive complimentary access to the Christmas Village. Consumable credit is not included automatically — residents load or top up their QR wristband before purchasing food, drinks, products or paid activities.",
+    "status": "confirmed",
+    "source": "FAQ v3 §5"
+  },
+  "towels": {
+    "fee": "RWF 5,000",
+    "deposit": { "value": null, "status": "pending", "source": "FAQ v3 §3" },
+    "status": "confirmed",
+    "source": "FAQ v3 §3"
+  },
+  "capacity": { "value": null, "status": "pending", "source": "Master Plan v3.1 §1" },
+
+  "contact": {
+    "phone": { "value": null, "status": "pending" },
+    "whatsapp": { "value": null, "status": "pending" },
+    "email": { "value": null, "status": "pending" },
+    "directions": { "value": null, "status": "pending" },
+    "pendingText": "Official contact details, directions and the Village booking link will be published here once approved.",
+    "source": "FAQ v3 approval check"
+  },
+
+  "mapStatus": {
+    "status": "pending",
+    "note": "Illustrative map — subject to final operational verification.",
+    "source": "Master Plan v3.1 §3"
+  }
+}

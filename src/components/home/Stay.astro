@@ -1,0 +1,68 @@
+---
+import Media from '../media/Media.astro';
+import Lines from '../editorial/Lines.astro';
+import CtaLink from '../CtaLink.astro';
+import { home, site } from '../../lib/content';
+
+const t = home.stay;
+---
+
+<section class="stay" id="stay" aria-labelledby="stay-title">
+  <div class="wrap grid stay__grid">
+    <Media slot="stay" class="stay__main" sizes="(min-width: 1100px) 50vw, 100vw" parallax="5%" reveal />
+    <Media slot="stay.detail" class="stay__detail" sizes="(min-width: 1100px) 18vw, 40vw" reveal />
+
+    <div class="stay__text">
+      <p class="eyebrow" data-reveal="fade">{t.eyebrow}</p>
+      <Lines as="h2" id="stay-title" class="h-l" lines={t.titleLines} />
+      <p data-reveal style="--i:1">{t.body}</p>
+      <p class="stay__resident" data-reveal style="--i:2">{site.residents.text}</p>
+      <div data-reveal style="--i:3">
+        <CtaLink name="bookStay" variant="line" pendingText={t.pendingCta} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stay { padding-block: var(--space-2xl); }
+  .stay__grid { align-items: center; row-gap: var(--space-xl); }
+  .stay :global(.stay__main) {
+    grid-column: 1 / span 6;
+    grid-row: 1;
+    aspect-ratio: 5 / 6;
+  }
+  .stay :global(.stay__detail) {
+    grid-column: 6 / span 2;
+    grid-row: 1;
+    align-self: end;
+    aspect-ratio: 3 / 4;
+    margin-bottom: calc(var(--space-xl) * -1);
+    z-index: 2;
+    box-shadow: 0 30px 60px -25px rgb(0 0 0 / 0.75);
+  }
+  .stay__text {
+    grid-column: 8 / -1;
+    grid-row: 1;
+    display: grid;
+    gap: var(--space-m);
+    justify-items: start;
+  }
+  .stay__text p { max-width: 46ch; }
+  .stay__resident {
+    padding-left: var(--space-m);
+    border-left: 1px solid var(--gold);
+    font-size: var(--step--1);
+    color: var(--cream-2);
+  }
+
+  @media (max-width: 1099px) {
+    .stay :global(.stay__main) { grid-column: 1 / span 9; aspect-ratio: 4 / 3; }
+    .stay :global(.stay__detail) { grid-column: 9 / -1; }
+    .stay__text { grid-column: 1 / -1; grid-row: 2; padding-top: var(--space-l); }
+  }
+  @media (max-width: 699px) {
+    .stay :global(.stay__main) { grid-column: 1 / span 11; aspect-ratio: 4 / 5; }
+    .stay :global(.stay__detail) { grid-column: 8 / -1; margin-bottom: calc(var(--space-l) * -1); }
+  }
+</style>

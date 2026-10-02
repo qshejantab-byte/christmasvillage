@@ -1,0 +1,42 @@
+---
+import type { Chapter } from '../../lib/content';
+
+interface Props {
+  chapter: Chapter;
+  class?: string;
+}
+
+const { chapter, class: className } = Astro.props;
+---
+
+<p class:list={['chapter-mark', className]} data-reveal="fade">
+  <span class="chapter-mark__num">{chapter.number}</span>
+  <span class="chapter-mark__rule" aria-hidden="true"></span>
+  <span class="chapter-mark__name">{chapter.name}</span>
+</p>
+
+<style>
+  .chapter-mark {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: var(--step--2);
+    font-weight: 450;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+  }
+  .chapter-mark__num {
+    font-family: var(--font-display);
+    font-size: 1.6em;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+  .chapter-mark__rule {
+    width: clamp(2rem, 1rem + 3vw, 4.5rem);
+    height: 1px;
+    background: currentColor;
+    opacity: 0.6;
+  }
+  :global(.on-paper) .chapter-mark { color: #8a6a2a; }
+</style>

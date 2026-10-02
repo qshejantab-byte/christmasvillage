@@ -1,0 +1,42 @@
+---
+import { url } from '../lib/content';
+
+interface Props {
+  width?: string;
+  link?: boolean;
+  class?: string;
+}
+
+const { width = '8.5rem', link = true, class: className } = Astro.props;
+const src = url('/brand/grotta-official-logo.png');
+const Tag = link ? 'a' : 'span';
+---
+
+<Tag
+  class:list={['logo', className]}
+  style={`--logo-w:${width}`}
+  {...(link ? { href: url('/'), 'aria-label': 'Grotta Christmas Village — home' } : {})}
+>
+  <span class="logo__frame">
+    <img src={src} alt={link ? '' : 'Grotta Resort'} width="666" height="374" decoding="async" />
+  </span>
+</Tag>
+
+<style>
+  .logo {
+    display: inline-block;
+    width: var(--logo-w);
+    line-height: 0;
+  }
+  .logo__frame {
+    display: block;
+    aspect-ratio: 316 / 97;
+    overflow: hidden;
+  }
+  .logo__frame img {
+    width: calc(100% * 666 / 316);
+    max-width: none;
+    margin-left: calc(-100% * 179 / 316);
+    margin-top: calc(-100% * 132 / 316);
+  }
+</style>

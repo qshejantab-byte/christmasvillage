@@ -1,0 +1,184 @@
+---
+import Media from '../media/Media.astro';
+import CtaLink from '../CtaLink.astro';
+import { site } from '../../lib/content';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <Media slot="hero" priority class="hero__media" sizes="100vw" />
+  <div class="hero__veil" aria-hidden="true"></div>
+
+  <div class="hero__content wrap">
+    <p class="eyebrow hero__eyebrow" data-reveal="fade">
+      Grotta Resort · {site.location.town}, {site.location.country}
+    </p>
+
+    <h1 class="hero__title display" id="hero-title" data-reveal="lines">
+      <span class="line hero__pre" style="--l:0"><span>Grotta</span></span>
+      <span class="line" style="--l:1"><span>Christmas</span></span>
+      <span class="line" style="--l:2"><span><em>Village</em> <span class="hero__year">2026</span></span></span>
+    </h1>
+
+    <div class="hero__foot">
+      <dl class="hero__facts" data-reveal="fade" style="--i:4">
+        <div>
+          <dt>Open daily</dt>
+          <dd>{site.dates.display}</dd>
+        </div>
+        <div>
+          <dt>Hours</dt>
+          <dd>{site.hours.display}</dd>
+        </div>
+      </dl>
+      <div class="hero__actions" data-reveal="fade" style="--i:5">
+        <CtaLink name="planVisit" />
+        <CtaLink name="exploreMap" variant="link" />
+      </div>
+    </div>
+  </div>
+
+  <a class="hero__cue" href="#threshold" aria-label="Enter the Village">
+    <span>Enter</span>
+    <span class="hero__cue-line" aria-hidden="true"></span>
+  </a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    align-items: end;
+    overflow: hidden;
+    background: var(--volcanic);
+  }
+  .hero :global(.hero__media) {
+    position: absolute;
+    inset: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero :global(.hero__media .media__inner) {
+      animation: drift 14s var(--ease-soft) both;
+    }
+  }
+  .hero__veil {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, rgb(12 11 9 / 0.92) 0%, rgb(12 11 9 / 0.55) 32%, rgb(12 11 9 / 0) 62%),
+      linear-gradient(to right, rgb(12 11 9 / 0.5), rgb(12 11 9 / 0) 55%);
+  }
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: var(--space-m);
+    padding-top: calc(var(--header-h) + var(--space-xl));
+    padding-bottom: clamp(2rem, 1rem + 4vw, 4.5rem);
+  }
+  .hero__title {
+    font-size: var(--step-5);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+  }
+  .hero__pre {
+    font-size: 0.38em;
+    letter-spacing: 0.02em;
+    font-style: italic;
+    color: var(--cream-2);
+    margin-bottom: 0.1em;
+  }
+  .hero__title em { color: var(--candle); font-weight: 360; }
+  .hero__year {
+    font-family: var(--font-sans);
+    font-size: 0.2em;
+    font-weight: 300;
+    letter-spacing: 0.32em;
+    vertical-align: 0.95em;
+    color: var(--cream-2);
+    margin-left: 0.35em;
+  }
+  .hero__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-l);
+    margin-top: var(--space-m);
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--line);
+  }
+  .hero__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s) var(--space-xl);
+  }
+  .hero__facts dt {
+    font-size: var(--step--2);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+  }
+  .hero__facts dd {
+    margin: 0.2rem 0 0;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    color: var(--cream);
+    line-height: 1.25;
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-s) var(--space-l);
+  }
+  .hero__cue {
+    position: absolute;
+    right: var(--gutter);
+    top: 50%;
+    z-index: 2;
+    display: grid;
+    justify-items: center;
+    gap: 0.8rem;
+    font-size: var(--step--2);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream-2);
+    writing-mode: vertical-rl;
+    transform: translateY(-50%);
+  }
+  .hero__cue-line {
+    position: relative;
+    width: 1px;
+    height: 4.5rem;
+    background: var(--line-strong);
+    overflow: hidden;
+  }
+  .hero__cue-line::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--candle);
+    transform: translateY(-100%);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__cue-line::after { animation: cue 2.6s var(--ease-cine) 1.6s infinite; }
+  }
+  @keyframes cue {
+    0% { transform: translateY(-100%); }
+    55% { transform: translateY(0); }
+    100% { transform: translateY(100%); }
+  }
+
+  @media (max-width: 699px) {
+    .hero__content { gap: var(--space-s); }
+    .hero__veil {
+      background: linear-gradient(to top, rgb(12 11 9 / 0.95) 0%, rgb(12 11 9 / 0.6) 45%, rgb(12 11 9 / 0.1) 75%);
+    }
+    .hero__cue { display: none; }
+    .hero__foot { gap: var(--space-m); }
+    .hero__facts { gap: var(--space-s) var(--space-l); }
+    .hero__actions { width: 100%; }
+    .hero__actions :global(.btn) { flex: 1 1 auto; }
+  }
+</style>

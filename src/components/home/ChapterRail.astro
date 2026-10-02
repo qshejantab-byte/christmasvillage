@@ -1,0 +1,110 @@
+---
+import { chapters } from '../../lib/content';
+---
+
+<nav class="rail" aria-label="Chapters" data-rail>
+  <ol role="list">
+    {
+      chapters.map((c) => (
+        <li>
+          <a href={`#chapter-${c.id}`} data-rail-link={c.id}>
+            <span class="rail__num">{c.number}</span>
+            <span class="rail__name">{c.name}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .rail {
+    position: fixed;
+    left: clamp(0.75rem, 1.2vw, 1.5rem);
+    top: 50%;
+    z-index: 40;
+    transform: translate(-1rem, -50%);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.6s var(--ease-out),
+      transform 0.6s var(--ease-out),
+      visibility 0.6s;
+    mix-blend-mode: difference;
+  }
+  .rail[data-visible='true'] {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0, -50%);
+  }
+  .rail ol { display: grid; gap: 0.35rem; }
+  .rail a {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding-block: 0.3rem;
+    color: #f2ead9;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .rail__num {
+    position: relative;
+    width: 1.5rem;
+    opacity: 0.55;
+    transition: opacity 0.4s;
+  }
+  .rail__num::after {
+    content: '';
+    position: absolute;
+    left: 1.6rem;
+    top: 50%;
+    width: 0.8rem;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0.4);
+    transform-origin: left;
+    opacity: 0.5;
+    transition: transform 0.5s var(--ease-out), opacity 0.4s;
+  }
+  .rail__name {
+    margin-left: 0.9rem;
+    opacity: 0;
+    transform: translateX(-0.4rem);
+    transition: opacity 0.4s, transform 0.5s var(--ease-out);
+  }
+  .rail a[aria-current='true'] .rail__num { opacity: 1; }
+  .rail a[aria-current='true'] .rail__num::after { transform: scaleX(1); opacity: 1; }
+  .rail a[aria-current='true'] .rail__name,
+  .rail a:hover .rail__name,
+  .rail a:focus-visible .rail__name { opacity: 1; transform: none; }
+
+  @media (max-width: 1279px) {
+    .rail { display: none; }
+  }
+</style>
+
+<script>
+  const rail = document.querySelector<HTMLElement>('[data-rail]');
+  const sections = [...document.querySelectorAll<HTMLElement>('[data-chapter]')];
+  if (rail && sections.length) {
+    const links = new Map([...rail.querySelectorAll<HTMLAnchorElement>('[data-rail-link]')].map((a) => [a.dataset.railLink!, a]));
+    const first = sections[0];
+    const last = sections[sections.length - 1];
+
+    const update = () => {
+      const mid = innerHeight * 0.5;
+      const inRange = first.getBoundingClientRect().top < mid && last.getBoundingClientRect().bottom > mid;
+      rail.dataset.visible = String(inRange);
+      let current = '';
+      for (const s of sections) if (s.getBoundingClientRect().top < mid) current = s.dataset.chapter!;
+      links.forEach((a, id) => a.setAttribute('aria-current', String(id === current)));
+    };
+    let raf = 0;
+    addEventListener('scroll', () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    }, { passive: true });
+    update();
+  }
+</script>

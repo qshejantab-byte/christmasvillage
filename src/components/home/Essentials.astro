@@ -1,0 +1,89 @@
+---
+import CtaLink from '../CtaLink.astro';
+import { home, url } from '../../lib/content';
+
+const t = home.essentials;
+---
+
+<section class="essentials" aria-labelledby="essentials-title">
+  <div class="wrap">
+    <div class="essentials__head">
+      <p class="eyebrow" data-reveal="fade">{t.eyebrow}</p>
+      <h2 class="h-l" id="essentials-title" data-reveal set:html={t.title} />
+    </div>
+
+    <div class="essentials__cols">
+      {
+        t.columns.map((col, i) => (
+          <div class="essentials__col" data-reveal style={`--i:${i}`}>
+            <h3 class="h-s">{col.title}</h3>
+            <ul role="list">
+              {col.lines.map((line) => (
+                <li>{line}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="essentials__actions" data-reveal>
+      <CtaLink name="planVisit" variant="line" />
+      <a class="link" href={url('/faq')}>All questions <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .essentials {
+    padding-block: var(--space-2xl);
+    background: var(--volcanic-2);
+  }
+  .essentials__head {
+    display: grid;
+    gap: var(--space-s);
+    max-width: 40rem;
+  }
+  .essentials__cols {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-l) var(--col-gap);
+    margin-top: var(--space-xl);
+  }
+  .essentials__col {
+    display: grid;
+    gap: var(--space-s);
+    align-content: start;
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--line-strong);
+  }
+  .essentials__col ul {
+    display: grid;
+    gap: 0.6rem;
+    font-size: var(--step--1);
+  }
+  .essentials__col li {
+    position: relative;
+    padding-left: 1.1rem;
+  }
+  .essentials__col li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.75em;
+    width: 0.4rem;
+    height: 1px;
+    background: var(--gold);
+  }
+  .essentials__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-m) var(--space-l);
+    margin-top: var(--space-xl);
+  }
+
+  @media (max-width: 899px) {
+    .essentials__cols { grid-template-columns: 1fr; }
+  }
+</style>

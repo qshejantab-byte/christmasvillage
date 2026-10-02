@@ -1,0 +1,142 @@
+---
+import Media from '../media/Media.astro';
+import ChapterMark from '../editorial/ChapterMark.astro';
+import Lines from '../editorial/Lines.astro';
+import { chapter } from '../../lib/content';
+
+const c = chapter('gather');
+---
+
+<section class="ch-gather" id="chapter-gather" data-chapter="gather" aria-labelledby="gather-title">
+  <div class="wrap grid ch-gather__stage">
+    <Media
+      slot={c.media[0]}
+      class="ch-gather__main"
+      sizes="(min-width: 1100px) 58vw, 100vw"
+      parallax="5%"
+      reveal
+    />
+    <Media slot={c.media[1]} class="ch-gather__detail" sizes="(min-width: 1100px) 22vw, 45vw" reveal />
+
+    <div class="ch-gather__intro">
+      <ChapterMark chapter={c} />
+      <Lines as="h2" id="gather-title" class="h-xl" lines={c.titleLines ?? [c.title]} />
+      <p class="lede" data-reveal style="--i:1">{c.lede}</p>
+    </div>
+  </div>
+
+  <div class="wrap ch-gather__outlets">
+    <div class="ch-gather__outlets-head">
+      <p class="eyebrow" data-reveal>Where to eat &amp; drink</p>
+      <p class="small" data-reveal style="--i:1">{c.note}</p>
+    </div>
+    <ul role="list" class="ch-gather__list">
+      {
+        c.outlets?.map((o, i) => (
+          <li data-reveal style={`--i:${i % 4}`}>
+            <span class="ch-gather__outlet">{o.name}</span>
+            <span class="ch-gather__leader" aria-hidden="true" />
+            <span class="ch-gather__offer">{o.offer}</span>
+          </li>
+        ))
+      }
+    </ul>
+    {c.footnote && <p class="small ch-gather__foot" data-reveal>{c.footnote}</p>}
+  </div>
+</section>
+
+<style>
+  .ch-gather {
+    position: relative;
+    padding-block: var(--space-2xl);
+    background:
+      radial-gradient(120% 70% at 85% 0%, rgb(36 68 58 / 0.55), rgb(16 29 25 / 0) 60%),
+      linear-gradient(to bottom, var(--volcanic), var(--evergreen-deep) 30%, var(--evergreen-deep) 75%, var(--volcanic));
+  }
+  .ch-gather__stage {
+    grid-template-rows: auto auto;
+    align-items: start;
+  }
+  .ch-gather :global(.ch-gather__main) {
+    grid-column: 1 / span 7;
+    grid-row: 1 / span 2;
+    aspect-ratio: 5 / 6;
+  }
+  .ch-gather :global(.ch-gather__detail) {
+    grid-column: 6 / span 3;
+    grid-row: 2;
+    aspect-ratio: 2 / 3;
+    margin-top: var(--space-xl);
+    margin-bottom: calc(var(--space-2xl) * -0.6);
+    z-index: 2;
+    box-shadow: 0 40px 80px -30px rgb(0 0 0 / 0.7);
+  }
+  .ch-gather__intro {
+    grid-column: 9 / -1;
+    grid-row: 1;
+    display: grid;
+    gap: var(--space-m);
+    padding-top: var(--space-xl);
+  }
+  .ch-gather__outlets {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    row-gap: var(--space-l);
+    margin-top: var(--space-2xl);
+  }
+  .ch-gather__outlets-head {
+    grid-column: 1 / span 4;
+    display: grid;
+    gap: var(--space-s);
+    align-content: start;
+  }
+  .ch-gather__list {
+    grid-column: 6 / -1;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .ch-gather__list li {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-s);
+    padding-block: 0.95rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .ch-gather__outlet {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    color: var(--cream);
+    white-space: nowrap;
+  }
+  .ch-gather__leader {
+    flex: 1;
+    min-width: 1.5rem;
+    border-bottom: 1px dotted var(--line-strong);
+    transform: translateY(-0.3em);
+  }
+  .ch-gather__offer {
+    font-size: var(--step--1);
+    color: var(--cream-2);
+    text-align: right;
+  }
+  .ch-gather__foot {
+    grid-column: 6 / -1;
+    max-width: 60ch;
+  }
+
+  @media (max-width: 1099px) {
+    .ch-gather :global(.ch-gather__main) { grid-column: 1 / span 8; }
+    .ch-gather :global(.ch-gather__detail) { grid-column: 7 / span 5; }
+    .ch-gather__intro { grid-column: 1 / -1; grid-row: 3; padding-top: var(--space-2xl); max-width: 40rem; }
+    .ch-gather__outlets-head, .ch-gather__list, .ch-gather__foot { grid-column: 1 / -1; }
+  }
+  @media (max-width: 699px) {
+    .ch-gather :global(.ch-gather__main) { grid-column: 1 / span 10; aspect-ratio: 4 / 5; }
+    .ch-gather :global(.ch-gather__detail) { grid-column: 7 / -1; margin-top: calc(var(--space-2xl) * -1); }
+    .ch-gather__intro { padding-top: var(--space-xl); }
+    .ch-gather__list li { flex-wrap: wrap; gap: 0.1rem var(--space-s); }
+    .ch-gather__leader { display: none; }
+    .ch-gather__offer { width: 100%; text-align: left; }
+  }
+</style>

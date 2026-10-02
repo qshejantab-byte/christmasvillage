@@ -1,0 +1,123 @@
+---
+import Logo from './Logo.astro';
+import CtaLink from './CtaLink.astro';
+import { navigation, site, url } from '../lib/content';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__lead">
+      <p class="site-footer__title display">
+        Grotta <em>Christmas</em> Village
+      </p>
+      <p class="site-footer__dates">
+        <span>{site.dates.display}</span>
+        <span>Every day · {site.hours.display}</span>
+      </p>
+    </div>
+
+    <div class="site-footer__grid">
+      <div class="site-footer__col">
+        <h2 class="eyebrow">Where</h2>
+        <p>Grotta Resort<br />{site.location.town}, {site.location.country}</p>
+      </div>
+
+      <nav class="site-footer__col" aria-label="Footer">
+        <h2 class="eyebrow">Explore</h2>
+        <ul role="list">
+          {navigation.footer.map((item) => <li><a href={url(item.href)}>{item.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <div class="site-footer__col">
+        <h2 class="eyebrow">Contact</h2>
+        <p class="small">{site.contact.pendingText}</p>
+      </div>
+
+      <div class="site-footer__col site-footer__actions">
+        <CtaLink name="planVisit" variant="line" />
+        <CtaLink name="bookStay" variant="link" />
+      </div>
+    </div>
+
+    <div class="site-footer__base">
+      <Logo width="7.5rem" />
+      <p class="small">
+        Information on this site follows the approved {site.sourceNote}. Only details published through official Grotta
+        channels should be treated as confirmed. Some imagery is illustrative of the season's atmosphere.
+      </p>
+      <p class="small">© {year} Grotta Resort</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    position: relative;
+    padding-block: var(--space-2xl) var(--space-l);
+    background: var(--volcanic-2);
+    box-shadow: inset 0 1px 0 var(--line);
+  }
+  .site-footer__lead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-l);
+    padding-bottom: var(--space-xl);
+  }
+  .site-footer__title {
+    font-size: var(--step-4);
+    max-width: 12ch;
+  }
+  .site-footer__dates {
+    display: grid;
+    gap: 0.2rem;
+    text-align: right;
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    color: var(--cream-2);
+  }
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-l) var(--col-gap);
+    padding-block: var(--space-l);
+    border-top: 1px solid var(--line);
+  }
+  .site-footer__col {
+    display: grid;
+    align-content: start;
+    gap: var(--space-s);
+    font-size: var(--step--1);
+    color: var(--cream-2);
+  }
+  .site-footer__col ul { display: grid; gap: 0.35rem; }
+  .site-footer__col a { transition: color var(--dur-1); }
+  .site-footer__col a:hover { color: var(--candle); }
+  .site-footer__actions {
+    justify-items: start;
+    align-content: start;
+    gap: var(--space-m);
+  }
+  .site-footer__base {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-l);
+    padding-top: var(--space-l);
+    border-top: 1px solid var(--line);
+  }
+  .site-footer__base p { max-width: 70ch; font-size: var(--step--2); }
+
+  @media (max-width: 959px) {
+    .site-footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .site-footer__dates { text-align: left; }
+  }
+  @media (max-width: 599px) {
+    .site-footer__grid { grid-template-columns: 1fr; }
+    .site-footer__base { grid-template-columns: 1fr; justify-items: start; }
+  }
+</style>

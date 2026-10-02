@@ -1,0 +1,130 @@
+---
+import Media from '../media/Media.astro';
+import ChapterMark from '../editorial/ChapterMark.astro';
+import Lines from '../editorial/Lines.astro';
+import { chapter, zones, url } from '../../lib/content';
+
+const c = chapter('wonder');
+const zoneNumber = (id: string) => zones.find((z) => z.id === id)?.n;
+---
+
+<section class="ch-wonder on-paper" id="chapter-wonder" data-chapter="wonder" aria-labelledby="wonder-title">
+  <div class="wrap">
+    <header class="ch-wonder__head">
+      <ChapterMark chapter={c} />
+      <Lines as="h2" id="wonder-title" class="h-xl" lines={c.titleLines ?? [c.title]} />
+      <p class="lede ch-wonder__lede" data-reveal style="--i:1">{c.lede}</p>
+    </header>
+
+    <div class="ch-wonder__collage">
+      <Media slot={c.media[1]} class="ch-wonder__a" sizes="(min-width: 1100px) 22vw, 40vw" reveal />
+      <Media slot={c.media[0]} class="ch-wonder__b" sizes="(min-width: 1100px) 48vw, 100vw" reveal />
+      <Media slot={c.media[2]} class="ch-wonder__c" sizes="(min-width: 1100px) 22vw, 40vw" reveal />
+    </div>
+
+    <ol class="ch-wonder__items" role="list">
+      {
+        c.items?.map((item, i) => (
+          <li data-reveal style={`--i:${i % 2}`}>
+            <a href={url(`/map#${item.zone}`)} class="ch-wonder__zone">
+              Stop {String(zoneNumber(item.zone)).padStart(2, '0')} <span aria-hidden="true">→</span>
+              <span class="visually-hidden">on the Village map</span>
+            </a>
+            <h3 class="h-m">{item.name}</h3>
+            <p>{item.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="ch-wonder__foot">
+      {c.partner && <p class="ch-wonder__partner" data-reveal>{c.partner}</p>}
+      {c.note && <p class="small" data-reveal style="--i:1">{c.note}</p>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ch-wonder {
+    position: relative;
+    padding-block: var(--space-2xl);
+  }
+  .ch-wonder__head {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-m);
+    text-align: center;
+  }
+  .ch-wonder__head :global(.chapter-mark) { justify-content: center; }
+  .ch-wonder__lede { max-width: 30ch; }
+
+  .ch-wonder__collage {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    align-items: start;
+    margin-top: var(--space-xl);
+  }
+  .ch-wonder :global(.ch-wonder__a) {
+    grid-column: 1 / span 3;
+    aspect-ratio: 3 / 4;
+    margin-top: var(--space-2xl);
+  }
+  .ch-wonder :global(.ch-wonder__b) {
+    grid-column: 4 / span 6;
+    aspect-ratio: 4 / 3;
+  }
+  .ch-wonder :global(.ch-wonder__c) {
+    grid-column: 10 / span 3;
+    aspect-ratio: 4 / 5;
+    margin-top: calc(var(--space-xl) * -0.5);
+  }
+
+  .ch-wonder__items {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-l) var(--space-xl);
+    max-width: 68rem;
+    margin: var(--space-2xl) auto 0;
+  }
+  .ch-wonder__items li {
+    display: grid;
+    gap: var(--space-xs);
+    align-content: start;
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--line-ink);
+  }
+  .ch-wonder__items p { max-width: 40ch; }
+  .ch-wonder__zone {
+    justify-self: start;
+    font-size: var(--step--2);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #8a6a2a;
+    transition: color var(--dur-1);
+  }
+  .ch-wonder__zone:hover { color: var(--ink); }
+
+  .ch-wonder__foot {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-2xs);
+    margin-top: var(--space-xl);
+    text-align: center;
+  }
+  .ch-wonder__partner {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--step-1);
+    color: var(--ink);
+    max-width: 44ch;
+  }
+
+  @media (max-width: 699px) {
+    .ch-wonder__collage { row-gap: var(--col-gap); }
+    .ch-wonder :global(.ch-wonder__b) { grid-column: 1 / -1; grid-row: 1; aspect-ratio: 4 / 3.4; }
+    .ch-wonder :global(.ch-wonder__a) { grid-column: 1 / span 6; grid-row: 2; margin-top: 0; }
+    .ch-wonder :global(.ch-wonder__c) { grid-column: 7 / -1; grid-row: 2; margin-top: var(--space-xl); }
+    .ch-wonder__items { grid-template-columns: 1fr; gap: var(--space-m); }
+  }
+</style>

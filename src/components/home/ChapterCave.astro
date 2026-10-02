@@ -1,0 +1,154 @@
+---
+import Media from '../media/Media.astro';
+import ChapterMark from '../editorial/ChapterMark.astro';
+import Lines from '../editorial/Lines.astro';
+import { chapter, zonesFor } from '../../lib/content';
+
+const c = chapter('cave');
+const stops = zonesFor('cave');
+---
+
+<section class="ch-cave" id="chapter-cave" data-chapter="cave" aria-labelledby="cave-title">
+  <div class="ch-cave__frame">
+    <Media slot={c.media[0]} class="ch-cave__media" sizes="100vw" />
+    <div class="ch-cave__veil" aria-hidden="true"></div>
+    <div class="wrap ch-cave__content">
+      <ChapterMark chapter={c} />
+      <Lines as="h2" id="cave-title" class="display ch-cave__title" lines={c.titleLines ?? [c.title]} />
+    </div>
+  </div>
+
+  <div class="wrap ch-cave__after">
+    <p class="lede ch-cave__lede" data-reveal>{c.lede}</p>
+    <ol class="ch-cave__route" role="list" aria-label="The final stops">
+      {
+        stops.map((z, i) => (
+          <li data-reveal style={`--i:${i}`}>
+            <span class="ch-cave__n">{String(z.n).padStart(2, '0')}</span>
+            <span class="ch-cave__name">{z.name}</span>
+            <span class="small">{z.summary}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .ch-cave {
+    background: #050504;
+    padding-bottom: var(--space-2xl);
+  }
+  .ch-cave__frame {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .ch-cave :global(.ch-cave__media) {
+    position: absolute;
+    inset: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .ch-cave :global(.ch-cave__media) {
+        animation: aperture linear both;
+        animation-timeline: view();
+        animation-range: entry 0% contain 30%;
+      }
+    }
+  }
+  @keyframes aperture {
+    from { clip-path: ellipse(14% 20% at 50% 55%); }
+    to { clip-path: ellipse(100% 100% at 50% 50%); }
+  }
+  .ch-cave__veil {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(70% 60% at 50% 50%, rgb(5 5 4 / 0.15), rgb(5 5 4 / 0.75) 100%),
+      linear-gradient(to top, #050504 0%, rgb(5 5 4 / 0) 30%);
+  }
+  .ch-cave__content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    justify-items: center;
+    gap: var(--space-m);
+    text-align: center;
+  }
+  .ch-cave__content :global(.chapter-mark) { justify-content: center; }
+  .ch-cave__title {
+    font-size: var(--step-5);
+    line-height: 0.92;
+    text-shadow: 0 2px 40px rgb(0 0 0 / 0.5);
+  }
+
+  .ch-cave__after {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
+    text-align: center;
+  }
+  .ch-cave__lede { max-width: 40ch; }
+  .ch-cave__route {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--col-gap);
+    width: 100%;
+    max-width: 72rem;
+  }
+  .ch-cave__route::before {
+    content: '';
+    position: absolute;
+    top: 0.55rem;
+    left: 16.6%;
+    right: 16.6%;
+    height: 1px;
+    background: linear-gradient(to right, var(--line-strong), var(--candle), var(--line-strong));
+    opacity: 0.6;
+  }
+  .ch-cave__route li {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 0.4rem;
+  }
+  .ch-cave__n {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding-inline: 0.7rem;
+    background: #050504;
+    font-size: var(--step--2);
+    letter-spacing: 0.22em;
+    color: var(--gold-soft);
+  }
+  .ch-cave__name {
+    margin-top: var(--space-xs);
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: 1.1;
+    color: var(--cream);
+  }
+  .ch-cave__route .small { max-width: 28ch; }
+
+  @media (max-width: 699px) {
+    .ch-cave__frame { min-height: 90svh; }
+    .ch-cave__route { grid-template-columns: 1fr; gap: var(--space-l); }
+    .ch-cave__route::before {
+      top: 0.6rem;
+      bottom: 0.6rem;
+      left: 50%;
+      right: auto;
+      width: 1px;
+      height: auto;
+      background: linear-gradient(to bottom, var(--line-strong), var(--candle), var(--line-strong));
+      opacity: 0.35;
+    }
+    .ch-cave__route li { background: #050504; padding-block: 0.4rem; }
+  }
+</style>

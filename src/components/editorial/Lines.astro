@@ -1,0 +1,21 @@
+---
+interface Props {
+  as?: string;
+  lines: string[];
+  class?: string;
+  delay?: number;
+  id?: string;
+}
+
+const { as: Tag = 'p', lines, class: className, delay = 0, id } = Astro.props;
+---
+
+<Tag class={className} data-reveal="lines" style={`--d:${delay}ms`} id={id}>
+  {
+    lines.map((line, l) => (
+      <span class="line" style={`--l:${l}`}>
+        <span set:html={line} />
+      </span>
+    ))
+  }
+</Tag>

@@ -1,0 +1,15 @@
+{
+  "primary": [
+    { "label": "The Village", "href": "/" },
+    { "label": "Map", "href": "/map" },
+    { "label": "Visit", "href": "/visit" },
+    { "label": "FAQ", "href": "/faq" }
+  ],
+  "cta": "planVisit",
+  "footer": [
+    { "label": "The Village", "href": "/" },
+    { "label": "Explore the Map", "href": "/map" },
+    { "label": "Plan Your Visit", "href": "/visit" },
+    { "label": "Questions", "href": "/faq" }
+  ]
+}

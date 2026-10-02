@@ -1,0 +1,159 @@
+[
+  {
+    "id": "arrive",
+    "number": "01",
+    "name": "Arrive",
+    "title": "Through the Gate",
+    "titleLines": [
+      "Through",
+      "the <em>Gate</em>"
+    ],
+    "lede": "Every visit begins at the Sales Pavilion, where your QR wristband is issued. Then the Village opens ahead of you — caroling bands on your left, the Grotta Christmas Hotel on your right.",
+    "body": "In the volcanic highlands of Musanze, Grotta Resort becomes a Christmas Village: open every day, from midday until ten at night.",
+    "route": [
+      "Sales Pavilion",
+      "Caroling on the left",
+      "The Hotel on the right"
+    ],
+    "media": [
+      "chapter.arrive"
+    ],
+    "status": "confirmed"
+  },
+  {
+    "id": "gather",
+    "number": "02",
+    "name": "Gather",
+    "title": "Pull Up a Chair",
+    "titleLines": [
+      "Pull Up",
+      "a <em>Chair</em>"
+    ],
+    "lede": "À la carte at the Frosted Restaurant. Hot wine and hot chocolate upstairs at Elf's Bar. Waffles, BBQ and pilau from the outdoor stalls, and popcorn and cotton candy by the cinema.",
+    "outlets": [
+      {
+        "name": "Frosted Restaurant",
+        "offer": "À la carte dining"
+      },
+      {
+        "name": "Elf's Bar",
+        "offer": "Hot wine, hot chocolate & bar"
+      },
+      {
+        "name": "Waffle Elf House",
+        "offer": "Waffles & sweets"
+      },
+      {
+        "name": "BBQ",
+        "offer": "Grills & sides"
+      },
+      {
+        "name": "Pilau",
+        "offer": "Pilau & accompaniments"
+      },
+      {
+        "name": "Cinema concessions",
+        "offer": "Popcorn & cotton candy"
+      },
+      {
+        "name": "Pool service",
+        "offer": "Drinks & snacks"
+      }
+    ],
+    "note": "Every purchase is made with your QR wristband — outlets don't take cash, Mobile Money or cards directly.",
+    "footnote": "Final menus and allergen information are being completed. Guests with allergies should speak to the outlet lead before ordering.",
+    "media": [
+      "chapter.gather",
+      "chapter.gather.detail"
+    ],
+    "status": "confirmed"
+  },
+  {
+    "id": "wonder",
+    "number": "03",
+    "name": "Wonder",
+    "title": "Letters, Films & Small Wonders",
+    "titleLines": [
+      "Letters, Films",
+      "&amp; Small <em>Wonders</em>"
+    ],
+    "lede": "Write to Santa. Settle in for a film. Make something with your hands, then go and meet the animals.",
+    "items": [
+      {
+        "zone": "santas-office",
+        "name": "Santa's Office",
+        "text": "Children write their letters — and post them to Santa."
+      },
+      {
+        "zone": "north-pole-cinema",
+        "name": "North Pole Cinema",
+        "text": "Films and a small stage in the activity tent, with EZfun crafts and interactive digital games."
+      },
+      {
+        "zone": "bouncy-nativity",
+        "name": "The Nativity",
+        "text": "A quieter place for photographs and reflection."
+      },
+      {
+        "zone": "farm",
+        "name": "Mini Farm & Bunny Village",
+        "text": "Animal viewing and feeding."
+      }
+    ],
+    "partner": "EZfun is the Village's confirmed partner for children's crafts and interactive digital games.",
+    "note": "Age suitability, capacity and caregiver rules for individual activities are communicated on-site.",
+    "media": [
+      "chapter.wonder",
+      "chapter.wonder.people",
+      "chapter.wonder.cinema"
+    ],
+    "status": "confirmed"
+  },
+  {
+    "id": "play",
+    "number": "04",
+    "name": "Water & Play",
+    "title": "Swim, Then Play On",
+    "titleLines": [
+      "Swim, Then",
+      "<em>Play On</em>"
+    ],
+    "lede": "The pool is part of the Village — the one the map draws as the Candy Cane Pool — with a children's pool for younger swimmers. Then the sports cluster, the playground and the bouncy castle.",
+    "activities": [
+      "Swim",
+      "Gym",
+      "Pickleball",
+      "Football",
+      "Volleyball",
+      "Playground",
+      "Bouncy castle"
+    ],
+    "note": "Pool access is subject to operating capacity, supervision and safety rules. Towels are RWF 5,000 plus a refundable deposit.",
+    "media": [
+      "chapter.play",
+      "chapter.play.detail"
+    ],
+    "status": "confirmed"
+  },
+  {
+    "id": "cave",
+    "number": "05",
+    "name": "Into the Cave",
+    "title": "The Way Out Is Through the Cave",
+    "titleLines": [
+      "The Way Out",
+      "Is Through",
+      "the <em>Cave</em>"
+    ],
+    "lede": "The journey ends underground. A guided cave route leads toward the resort entrance — then the Grinch area and photobooth, and caroling at the exit, the same sound that welcomed you in.",
+    "route": [
+      "Cave route",
+      "Grinch area & photobooth",
+      "Exit caroling"
+    ],
+    "media": [
+      "chapter.cave"
+    ],
+    "status": "confirmed"
+  }
+]

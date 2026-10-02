@@ -1,0 +1,150 @@
+---
+import Lines from '../editorial/Lines.astro';
+import { chapters, home, site } from '../../lib/content';
+
+const t = home.threshold;
+
+const facts = [
+  { label: 'Dates', value: site.dates.display, note: `${site.dates.days} days, open every day` },
+  { label: 'Hours', value: site.hours.display, note: 'Daily, including the holidays' },
+  { label: 'Ticket', value: site.ticket.price, note: `Includes ${site.ticket.credit} credit on a QR wristband` },
+  { label: 'Holiday dates', value: '24 · 25 · 31 Dec & 1 Jan', note: 'Open — expect higher attendance' },
+];
+---
+
+<section class="threshold" id="threshold" aria-labelledby="threshold-title">
+  <div class="wrap">
+    <div class="threshold__statement grid">
+      <p class="eyebrow threshold__eyebrow" data-reveal="fade">{t.eyebrow}</p>
+      <Lines as="h2" id="threshold-title" class="statement threshold__title" lines={t.titleLines} />
+      <p class="threshold__body" data-reveal style="--i:2">{site.description}</p>
+    </div>
+
+    <dl class="threshold__facts" role="list">
+      {
+        facts.map((f, i) => (
+          <div role="listitem" data-reveal style={`--i:${i}`}>
+            <dt class="eyebrow">{f.label}</dt>
+            <dd>
+              <span class="threshold__value">{f.value}</span>
+              <span class="small">{f.note}</span>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <nav class="threshold__index" aria-label="The five chapters">
+      <p class="eyebrow">{t.indexLabel}</p>
+      <ol role="list">
+        {
+          chapters.map((c, i) => (
+            <li data-reveal style={`--i:${i}`}>
+              <a href={`#chapter-${c.id}`}>
+                <span class="threshold__num">{c.number}</span>
+                <span class="threshold__name">{c.name}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<style>
+  .threshold {
+    padding-block: var(--space-3xl) var(--space-2xl);
+  }
+  .threshold__statement { row-gap: var(--space-l); }
+  .threshold__eyebrow { grid-column: 2 / -1; }
+  .threshold__title {
+    grid-column: 2 / span 10;
+    font-size: var(--step-4);
+    line-height: 1.02;
+  }
+  .threshold__body {
+    grid-column: 7 / span 5;
+    max-width: 46ch;
+    margin-top: var(--space-m);
+    color: var(--cream-2);
+  }
+  .threshold__facts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-l) var(--col-gap);
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-l);
+    border-top: 1px solid var(--line);
+  }
+  .threshold__facts dd {
+    display: grid;
+    gap: 0.35rem;
+    margin: var(--space-xs) 0 0;
+  }
+  .threshold__value {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.2;
+    color: var(--cream);
+  }
+  .threshold__index {
+    display: grid;
+    gap: var(--space-m);
+    margin-top: var(--space-2xl);
+  }
+  .threshold__index ol {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--col-gap);
+  }
+  .threshold__index a {
+    display: grid;
+    gap: 0.4rem;
+    padding-top: var(--space-s);
+    border-top: 1px solid var(--line-strong);
+    transition: border-color 0.5s var(--ease-out);
+  }
+  .threshold__num {
+    font-size: var(--step--2);
+    letter-spacing: 0.22em;
+    color: var(--gold-soft);
+  }
+  .threshold__name {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: 1.05;
+    color: var(--cream);
+    transition: color var(--dur-1), transform 0.6s var(--ease-out);
+  }
+  .threshold__index a:hover { border-color: var(--candle); }
+  .threshold__index a:hover .threshold__name { color: var(--candle); transform: translateX(0.25rem); font-style: italic; }
+
+  @media (max-width: 1099px) {
+    .threshold__title { grid-column: 1 / -1; }
+    .threshold__eyebrow { grid-column: 1 / -1; }
+    .threshold__body { grid-column: 5 / -1; }
+    .threshold__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 699px) {
+    .threshold { padding-block: var(--space-2xl) var(--space-xl); }
+    .threshold__title { font-size: var(--step-3); }
+    .threshold__body { grid-column: 1 / -1; margin-top: 0; }
+    .threshold__facts { grid-template-columns: 1fr; gap: var(--space-m); margin-top: var(--space-xl); }
+    .threshold__facts > div {
+      display: grid;
+      grid-template-columns: 6.5rem 1fr;
+      gap: var(--space-s);
+      align-items: baseline;
+    }
+    .threshold__facts dd { margin: 0; }
+    .threshold__index { margin-top: var(--space-xl); }
+    .threshold__index ol { grid-template-columns: 1fr; gap: 0; }
+    .threshold__index a {
+      grid-template-columns: 2.5rem 1fr;
+      align-items: baseline;
+      padding-block: 0.85rem;
+      border-top-color: var(--line);
+    }
+  }
+</style>
